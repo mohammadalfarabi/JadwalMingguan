@@ -1,59 +1,167 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jadwal Kegiatan Mingguan | al farabi</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <title>Jadwal Kegiatan Mingguan</title>
+    <style>
+        /* CSS INTERNAL - Agar pasti terbaca */
+        :root {
+            --primary-color: #4f46e5;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 { margin-bottom: 30px; color: #0f172a; font-weight: 800; }
+
+        /* Login Box */
+        #loginBox {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 350px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        #loginBox h3 { margin-top: 0; font-size: 1.2rem; }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            box-sizing: border-box; /* Penting agar input tidak luber */
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        button:hover { background-color: #4338ca; }
+
+        /* Admin Panel */
+        #adminPanel {
+            background: #e2e8f0;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .edit-btn {
+            background: #059669;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .logout-btn {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* Iframe Styling */
+        .sheet-container {
+            width: 100%;
+            max-width: 1000px;
+            background: white;
+            padding: 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .sheet-frame {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="main-wrapper">
-        <header>
-            <h1>Jadwal Kegiatan Mingguan</h1>
-            <p class="subtitle">Kelola dan pantau agenda operasional dengan mudah</p>
-        </header>
+    <h2>📅 Jadwal Kegiatan Mingguan</h2>
 
-        <section class="auth-section">
-            <div id="loginBox" class="glass-card">
-                <h3>Admin Login</h3>
-                <div class="form-control">
-                    <input type="text" id="username" placeholder="Username" autocomplete="off">
-                    <input type="password" id="password" placeholder="Password">
-                    <button class="btn-primary" onclick="login()">Masuk ke Panel</button>
-                </div>
-                <p id="loginMsg"></p>
-            </div>
-
-            <div id="adminPanel" class="glass-card admin-active" style="display:none;">
-                <div class="admin-info">
-                    <div class="avatar">A</div>
-                    <span>Halo, <strong>Admin</strong></span>
-                </div>
-                <div class="action-buttons">
-                    <a href="https://docs.google.com/spreadsheets/d/1WMXiYcvGiJugJs1ysUV0e1PmluD1d1m5/edit" 
-                       target="_blank" class="btn-edit">✏️ Edit Google Sheets</a>
-                    <button class="btn-logout" onclick="logout()">Keluar</button>
-                </div>
-            </div>
-        </section>
-
-        <section class="sheet-section">
-            <div class="sheet-card">
-                <div class="sheet-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="sheet-title">Live Spreadsheet View</span>
-                </div>
-                <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSiWYOvdh6aL_kUPiWGbQAJbbR39YgliB7uESKuxi4FcTmr-xq6msru8skWftq5dQ/pubhtml?widget=true&headers=false" 
-                        class="sheet-frame"></iframe>
-            </div>
-        </section>
+    <div id="loginBox">
+        <h3>Login Admin</h3>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Masuk</button>
+        <p id="loginMsg" style="font-size: 12px; margin-top: 10px;"></p>
     </div>
 
-    <script src="script.js"></script>
+    <div id="adminPanel" style="display:none;">
+        <a href="https://docs.google.com/spreadsheets/d/1WMXiYcvGiJugJs1ysUV0e1PmluD1d1m5/edit" target="_blank" class="edit-btn">✏️ Edit Jadwal</a>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="sheet-container">
+        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSiWYOvdh6aL_kUPiWGbQAJbbR39YgliB7uESKuxi4FcTmr-xq6msru8skWftq5dQ/pubhtml?widget=true&headers=false" class="sheet-frame"></iframe>
+    </div>
+
+    <script>
+        // JS diletakkan di sini agar simpel
+        const ADMIN_USER = "admin";
+        const ADMIN_PASS = "12345";
+
+        function login() {
+            const user = document.getElementById("username").value;
+            const pass = document.getElementById("password").value;
+            const msg = document.getElementById("loginMsg");
+
+            if (user === ADMIN_USER && pass === ADMIN_PASS) {
+                localStorage.setItem("isAdmin", "true");
+                showAdmin();
+            } else {
+                msg.textContent = "Username atau password salah";
+                msg.style.color = "red";
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem("isAdmin");
+            location.reload();
+        }
+
+        function showAdmin() {
+            document.getElementById("loginBox").style.display = "none";
+            document.getElementById("adminPanel").style.display = "flex";
+        }
+
+        if (localStorage.getItem("isAdmin") === "true") {
+            showAdmin();
+        }
+    </script>
 </body>
 </html>
