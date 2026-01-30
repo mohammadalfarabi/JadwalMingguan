@@ -2,46 +2,54 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PORTAL JADWAL AL FARABI - EDIT MODE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>JADWAL AL FARABI</title>
     <style>
+        /* Dasar Responsif */
+        * { box-sizing: border-box; }
+        
         body {
             background-color: #008080; 
             font-family: "Times New Roman", Times, serif;
             color: #000000;
-            margin: 10px; /* Margin lebih kecil untuk layar HP */
+            margin: 0;
+            padding: 10px; /* Jarak aman di pinggir layar HP */
+            display: flex;
+            justify-content: center;
         }
 
         .web-container {
             background-color: #C0C0C0; 
-            border: 4px outset #ffffff;
-            padding: 15px;
-            max-width: 900px;
-            margin: 0 auto;
-            box-shadow: 6px 6px 0px rgba(0,0,0,0.6);
+            border: 3px outset #ffffff;
+            padding: 10px;
+            width: 100%;
+            max-width: 950px; /* Maksimal lebar di komputer */
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.6);
         }
 
         header {
-            border: 3px inset #808080;
+            border: 2px inset #808080;
             background: linear-gradient(to right, #000080, #0080ff); 
             color: white;
-            padding: 10px;
+            padding: 8px;
             text-align: center;
+            margin-bottom: 10px;
         }
 
         header h1 {
-            font-size: 1.5rem; /* Ukuran font judul yang fleksibel */
-            margin: 5px 0;
+            font-size: clamp(1.1rem, 4vw, 1.8rem); /* Font mengecil otomatis di HP */
+            margin: 0;
+            text-shadow: 1px 1px #000;
         }
 
-        /* Panel Edit dimodifikasi agar bisa turun ke bawah (wrap) di layar kecil */
-        .edit-panel {
+        /* Panel Admin Ghaib */
+        #admin-panel {
+            display: none; 
             background-color: #C0C0C0;
             border: 2px outset #ffffff;
             padding: 10px;
-            margin: 15px 0;
-            display: flex;
-            flex-wrap: wrap; /* Agar tombol turun jika layar sempit */
+            margin: 10px 0;
+            flex-wrap: wrap;
             align-items: center;
             justify-content: center;
             gap: 10px;
@@ -50,7 +58,7 @@
         .win-button {
             background-color: #C0C0C0;
             border: 2px outset #ffffff;
-            padding: 5px 10px;
+            padding: 6px 12px;
             cursor: pointer;
             font-size: 13px;
             font-weight: bold;
@@ -58,63 +66,65 @@
             color: black;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            min-width: fit-content;
+            gap: 8px;
+            box-shadow: 1px 1px 0px #000;
         }
 
         .win-button:active {
             border: 2px inset #ffffff;
-            background-color: #d0d0d0;
-        }
-
-        .win-button img {
-            width: 16px;
-            height: 16px;
+            box-shadow: none;
+            transform: translate(1px, 1px);
         }
 
         marquee {
             background-color: #ffff00;
             border: 1px solid #000;
             font-weight: bold;
-            margin: 10px 0;
+            padding: 3px;
+            margin-bottom: 10px;
         }
 
+        /* Container Tabel agar bisa Scroll di HP */
         .sheet-box {
             background-color: #ffffff;
             border: 3px inset #808080;
-            margin-top: 10px;
-            overflow-x: auto; /* Memungkinkan scroll horizontal jika tabel spreadsheet terlalu lebar */
-            -webkit-overflow-scrolling: touch; /* Scroll halus di iOS */
+            width: 100%;
+            overflow: hidden; /* Mencegah pecah */
+            position: relative;
         }
 
         iframe {
             width: 100%;
-            height: 500px; /* Sedikit diperpendek agar lebih enak di HP */
+            height: 70vh; /* Tinggi mengikuti 70% tinggi layar perangkat */
+            min-height: 400px;
             border: none;
             display: block;
         }
 
-        footer {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 12px;
-            border-top: 1px solid #808080;
-            padding-top: 10px;
+        /* Area Rahasia Klik 5x */
+        .invisible-trigger {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            background: transparent;
+            z-index: 10000;
         }
 
-        /* Media Query untuk Layar Sangat Kecil (HP) */
-        @media (max-width: 480px) {
-            .web-container {
-                padding: 10px;
-                border: 2px outset #ffffff;
-            }
-            .win-button {
-                width: 100%; /* Tombol jadi full-width di HP agar mudah ditekan */
-                justify-content: center;
-            }
-            header h1 {
-                font-size: 1.2rem;
-            }
+        footer {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 11px;
+            border-top: 1px solid #808080;
+            padding-top: 8px;
+        }
+
+        /* Penyesuaian khusus HP */
+        @media (max-width: 600px) {
+            body { padding: 5px; }
+            .win-button { width: 100%; justify-content: center; } /* Tombol jadi penuh di HP */
+            .web-container { border-width: 2px; }
         }
     </style>
 </head>
@@ -125,22 +135,16 @@
         <h1>*** JADWAL KEGIATAN AL FARABI ***</h1>
     </header>
 
-    <marquee>PENGUMUMAN: Gunakan tombol "EDIT JADWAL" di bawah untuk melakukan perubahan pada database Google Spreadsheet...</marquee>
+    <marquee scrollamount="4">INFO: Ketuk pojok kanan bawah 5x untuk akses mode edit...</marquee>
 
-    <div class="edit-panel">
-        <span style="width: 100%; text-align: center; margin-bottom: 5px;"><b>MANAJEMEN DATA:</b></span>
+    <div id="admin-panel">
         <a href="https://docs.google.com/spreadsheets/d/1WMXiYcvGiJugJs1ysUV0e1PmluD1d1m5/edit" target="_blank" class="win-button">
-            <img src="https://win98icons.alexmeub.com/icons/png/write_yellow-0.png" alt="icon">
-            EDIT JADWAL (SPREADSHEET)
+            <img src="https://win98icons.alexmeub.com/icons/png/write_yellow-0.png" width="16" height="16">
+            BUKA SPREADSHEET
         </a>
-        <a href="https://alfarabi.my.id" class="win-button">
-            <img src="https://win98icons.alexmeub.com/icons/png/help_book_computer-0.png" alt="icon">
-            KE WEBSITE UTAMA
-        </a>
-    </div>
-
-    <div style="text-align: center; margin-bottom: 10px;">
-        <h3 style="background-color: #000080; color: white; display: inline-block; padding: 2px 10px; font-size: 0.9rem;">PRATINJAU JADWAL SAAT INI</h3>
+        <button onclick="document.getElementById('admin-panel').style.display='none'" class="win-button">
+             TUTUP PANEL
+        </button>
     </div>
 
     <div class="sheet-box">
@@ -148,9 +152,31 @@
     </div>
 
     <footer>
-        <p>Copyright &copy; 1998 Al Farabi.</p>
+        <p>Copyright &copy; Al Farabi.</p>
     </footer>
 </div>
+
+<div class="invisible-trigger" onclick="activateAdmin()"></div>
+
+<script>
+    let clickCount = 0;
+    let clickTimer;
+
+    function activateAdmin() {
+        clickCount++;
+        clearTimeout(clickTimer);
+        clickTimer = setTimeout(() => { clickCount = 0; }, 2000);
+
+        if (clickCount === 5) {
+            const panel = document.getElementById('admin-panel');
+            panel.style.display = (panel.style.display === 'flex') ? 'none' : 'flex';
+            if(panel.style.display === 'flex') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            clickCount = 0;
+        }
+    }
+</script>
 
 </body>
 </html>
