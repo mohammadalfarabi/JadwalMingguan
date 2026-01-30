@@ -1,39 +1,58 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Dokumen Jadwal</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal Kegiatan Mingguan | al farabi</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<h2>Jadwal Kegiatan Mingguan</h2>
+    <div class="main-wrapper">
+        <header>
+            <h1>Jadwal Kegiatan Mingguan</h1>
+            <p class="subtitle">Kelola dan pantau agenda operasional dengan mudah</p>
+        </header>
 
-<!-- LOGIN ADMIN -->
-<div id="loginBox">
-  <h3>Login Admin</h3>
-  <input type="text" id="username" placeholder="Username">
-  <input type="password" id="password" placeholder="Password">
-  <button onclick="login()">Login</button>
-  <p id="loginMsg"></p>
-</div>
+        <section class="auth-section">
+            <div id="loginBox" class="glass-card">
+                <h3>Admin Login</h3>
+                <div class="form-control">
+                    <input type="text" id="username" placeholder="Username" autocomplete="off">
+                    <input type="password" id="password" placeholder="Password">
+                    <button class="btn-primary" onclick="login()">Masuk ke Panel</button>
+                </div>
+                <p id="loginMsg"></p>
+            </div>
 
-<!-- TOMBOL ADMIN -->
-<div id="adminPanel" style="display:none;">
-  <a href="https://docs.google.com/spreadsheets/d/1WMXiYcvGiJugJs1ysUV0e1PmluD1d1m5/edit"
-   target="_blank"
-   class="edit-btn">
-     ✏️ Edit Dokumen
-  </a>
-  <button onclick="logout()">Logout</button>
-</div>
+            <div id="adminPanel" class="glass-card admin-active" style="display:none;">
+                <div class="admin-info">
+                    <div class="avatar">A</div>
+                    <span>Halo, <strong>Admin</strong></span>
+                </div>
+                <div class="action-buttons">
+                    <a href="https://docs.google.com/spreadsheets/d/1WMXiYcvGiJugJs1ysUV0e1PmluD1d1m5/edit" 
+                       target="_blank" class="btn-edit">✏️ Edit Google Sheets</a>
+                    <button class="btn-logout" onclick="logout()">Keluar</button>
+                </div>
+            </div>
+        </section>
 
-<!-- DOKUMEN -->
-<iframe
-  src="https://docs.google.com/spreadsheets/d/1WMXiYcvGiJugJs1ysUV0e1PmluD1d1m5/preview"
-  class="doc-frame">
-</iframe>
+        <section class="sheet-section">
+            <div class="sheet-card">
+                <div class="sheet-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="sheet-title">Live Spreadsheet View</span>
+                </div>
+                <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSiWYOvdh6aL_kUPiWGbQAJbbR39YgliB7uESKuxi4FcTmr-xq6msru8skWftq5dQ/pubhtml?widget=true&headers=false" 
+                        class="sheet-frame"></iframe>
+            </div>
+        </section>
+    </div>
 
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
