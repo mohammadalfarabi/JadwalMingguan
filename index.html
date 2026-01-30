@@ -2,208 +2,210 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jadwal Kegiatan Mingguan | Al Farabi</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    
+    <title>SELAMAT DATANG DI WEBSITE JADWAL AL FARABI - VERSI 1.0</title>
     <style>
-        :root {
-            --primary: #4f46e5;
-            --bg-body: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #1e293b;
-        }
-
+        /* Konsep Web Jadul 90-an */
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-body);
-            margin: 0;
-            padding: 0;
-            color: var(--text-main);
+            background-color: #008080; /* Warna Teal klasik Windows 95 */
+            font-family: "Times New Roman", Times, serif;
+            color: #000000;
+            margin: 20px;
         }
 
-        /* Navbar & Header */
+        .web-container {
+            background-color: #C0C0C0; /* Abu-abu metalik khas aplikasi jadul */
+            border: 4px outset #ffffff;
+            padding: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            border: 3px inset #808080;
+            background: linear-gradient(to right, #000080, #0080ff); /* Header biru gradasi */
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
         nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 5%;
-            background: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            background-color: #C0C0C0;
+            border-bottom: 2px solid #808080;
+            padding: 5px;
+            margin-bottom: 10px;
+            font-size: 0.9em;
         }
 
-        .logo { font-weight: 700; font-size: 1.2rem; color: var(--primary); }
+        marquee {
+            background-color: #ffff00;
+            border: 1px solid #000;
+            font-weight: bold;
+            margin: 10px 0;
+        }
 
-        /* Floating Login Button (Low Profile) */
-        .admin-trigger {
-            background: none;
-            border: none;
-            color: #cbd5e1; /* Warna samar agar tidak mencolok */
+        /* Tombol ala Windows 98 */
+        .win-button {
+            background-color: #C0C0C0;
+            border: 2px outset #ffffff;
+            padding: 3px 10px;
             cursor: pointer;
-            font-size: 0.8rem;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-        .admin-trigger:hover { color: var(--primary); background: #f1f5f9; }
-
-        .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
+            font-size: 12px;
+            text-decoration: none;
+            color: black;
         }
 
-        header { text-align: center; margin-bottom: 30px; }
-
-        /* Spreadsheet Styling */
-        .sheet-card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e2e8f0;
+        .win-button:active {
+            border: 2px inset #ffffff;
         }
 
-        iframe { width: 100%; height: 750px; border: none; }
+        .sheet-box {
+            background-color: #ffffff;
+            border: 2px inset #808080;
+            margin-top: 15px;
+        }
 
-        /* MODAL LOGIN (Hidden by default) */
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .visitor-counter {
+            background-color: black;
+            color: #00FF00;
+            padding: 2px 5px;
+            font-family: 'Courier New', Courier, monospace;
+            border: 1px solid #808080;
+        }
+
+        /* Modal Box Klasik */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(4px);
-            display: none; /* Sembunyi */
+            background: rgba(0,0,0,0.5);
+            display: none;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
         }
 
-        .login-modal {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 350px;
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2);
-            position: relative;
+        .login-window {
+            background-color: #C0C0C0;
+            border: 3px outset #ffffff;
+            width: 300px;
+            padding: 2px;
         }
 
-        .close-modal {
-            position: absolute;
-            top: 15px; right: 15px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            color: #94a3b8;
-        }
-
-        .login-modal h3 { margin-top: 0; text-align: center; }
-        .login-modal input {
-            width: 100%; padding: 12px; margin: 10px 0;
-            border: 1px solid #e2e8f0; border-radius: 8px;
-            box-sizing: border-box;
-        }
-
-        .btn-login {
-            width: 100%; padding: 12px; background: var(--primary);
-            color: white; border: none; border-radius: 8px;
-            font-weight: 600; cursor: pointer;
-        }
-
-        /* Admin Panel (Muncul setelah login) */
-        #adminPanel {
-            display: none;
-            background: #f1f5f9;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+        .window-title {
+            background: #000080;
+            color: white;
+            padding: 3px 5px;
+            font-weight: bold;
+            font-size: 13px;
+            display: flex;
             justify-content: space-between;
-            align-items: center;
         }
 
-        .btn-edit { color: white; background: #059669; padding: 8px 15px; text-decoration: none; border-radius: 6px; font-size: 0.9rem; }
-        .btn-logout { background: #ef4444; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; }
-
+        .admin-panel {
+            display: none;
+            background: #ffffc0;
+            border: 1px dashed red;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
 
+<div class="web-container">
+    <header>
+        <h1>*** JADWAL KEGIATAN AL FARABI ***</h1>
+    </header>
+
     <nav>
-        <div class="logo">📅 Schedule Al Farabi</div>
-        <button class="admin-trigger" id="openLogin" onclick="toggleModal(true)">Admin Login</button>
+        [ <a href="#">Beranda</a> ] [ <a href="#">Tentang Kami</a> ] [ <a href="#" id="openLogin" onclick="toggleModal(true)">Admin Login</a> ]
     </nav>
 
-    <div class="container">
-        <header>
-            <h1>Jadwal Kegiatan Mingguan</h1>
-            <p>Data diperbarui secara otomatis.</p>
-        </header>
+    <marquee scrollamount="5">Selamat Datang di Portal Jadwal Digital Al Farabi -- Update Otomatis Setiap Hari! -- Gunakan Netscape Navigator untuk tampilan terbaik --</marquee>
 
-        <div id="adminPanel">
-            <span>Mode Admin: <strong>Aktif</strong></span>
-            <div style="display: flex; gap: 10px;">
-                <a href="https://docs.google.com/spreadsheets/d/1WMXiYcvGiJugJs1ysUV0e1PmluD1d1m5/edit" target="_blank" class="btn-edit">Edit Data</a>
-                <button class="btn-logout" onclick="logout()">Logout</button>
-            </div>
-        </div>
-
-        <div class="sheet-card">
-            <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSiWYOvdh6aL_kUPiWGbQAJbbR39YgliB7uESKuxi4FcTmr-xq6msru8skWftq5dQ/pubhtml?widget=true&headers=false"></iframe>
-        </div>
+    <div id="adminPanel" class="admin-panel">
+        <strong>Peringatan Admin:</strong> Anda masuk dalam mode Edit. 
+        <a href="https://docs.google.com/spreadsheets/d/1WMXiYcvGiJugJs1ysUV0e1PmluD1d1m5/edit" target="_blank" class="win-button">EDIT DATA</a>
+        <button class="win-button" onclick="logout()">LOGOUT</button>
     </div>
 
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="login-modal">
-            <span class="close-modal" onclick="toggleModal(false)">&times;</span>
-            <h3>Admin Access</h3>
-            <input type="text" id="username" placeholder="Username">
-            <input type="password" id="password" placeholder="Password">
-            <button class="btn-login" onclick="login()">Masuk</button>
-            <p id="loginMsg" style="text-align:center; font-size:0.8rem; margin-top:10px;"></p>
-        </div>
+    <center>
+        <img src="https://web.archive.org/web/20091027005003im_/http://geocities.com/Tokyo/6718/construction.gif" alt="Under Construction" width="50">
+        <h3>Informasi Jadwal Mingguan</h3>
+    </center>
+
+    <div class="sheet-box">
+        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSiWYOvdh6aL_kUPiWGbQAJbbR39YgliB7uESKuxi4FcTmr-xq6msru8skWftq5dQ/pubhtml?widget=true&headers=false"></iframe>
     </div>
 
-    <script>
-        const ADMIN_USER = "admin";
-        const ADMIN_PASS = "12345";
+    <footer>
+        <p>Copyright &copy; 1998 Al Farabi Network. All Rights Reserved.</p>
+        <p>Anda adalah pengunjung ke: <span class="visitor-counter">0001293</span></p>
+        <img src="https://web.archive.org/web/20091027050211im_/http://geocities.com/SouthBeach/Sands/7061/images/ns_logo.gif" alt="Netscape" height="30">
+        <img src="https://web.archive.org/web/20090830034539im_/http://geocities.com/Area51/Station/2419/ie_logo.gif" alt="IE" height="30">
+    </footer>
+</div>
 
-        function toggleModal(show) {
-            document.getElementById('modalOverlay').style.display = show ? 'flex' : 'none';
-        }
+<div class="modal-overlay" id="modalOverlay">
+    <div class="login-window">
+        <div class="window-title">
+            <span>Login Admin</span>
+            <span style="cursor:pointer" onclick="toggleModal(false)">[X]</span>
+        </div>
+        <div style="padding: 15px;">
+            Username: <br>
+            <input type="text" id="username" style="width: 100%; margin-bottom: 10px;"><br>
+            Password: <br>
+            <input type="password" id="password" style="width: 100%; margin-bottom: 10px;">
+            <center>
+                <button class="win-button" onclick="login()">OK</button>
+                <button class="win-button" onclick="toggleModal(false)">Cancel</button>
+            </center>
+            <p id="loginMsg" style="color:red; font-size:11px;"></p>
+        </div>
+    </div>
+</div>
 
-        function login() {
-            const user = document.getElementById("username").value;
-            const pass = document.getElementById("password").value;
-            const msg = document.getElementById("loginMsg");
+<script>
+    const ADMIN_USER = "admin";
+    const ADMIN_PASS = "12345";
 
-            if (user === ADMIN_USER && pass === ADMIN_PASS) {
-                localStorage.setItem("isAdmin", "true");
-                toggleModal(false);
-                checkLogin();
-            } else {
-                msg.textContent = "Akses ditolak!";
-                msg.style.color = "red";
-            }
-        }
+    function toggleModal(show) {
+        document.getElementById('modalOverlay').style.display = show ? 'flex' : 'none';
+    }
 
-        function logout() {
-            localStorage.removeItem("isAdmin");
+    function login() {
+        const user = document.getElementById("username").value;
+        const pass = document.getElementById("password").value;
+        if (user === ADMIN_USER && pass === ADMIN_PASS) {
+            localStorage.setItem("isAdmin", "true");
             location.reload();
+        } else {
+            document.getElementById("loginMsg").textContent = "Error: Password Salah!";
         }
+    }
 
-        function checkLogin() {
-            if (localStorage.getItem("isAdmin") === "true") {
-                document.getElementById("adminPanel").style.display = "flex";
-                document.getElementById("openLogin").style.display = "none";
-            }
-        }
+    function logout() {
+        localStorage.removeItem("isAdmin");
+        location.reload();
+    }
 
-        // Jalankan cek login saat startup
-        checkLogin();
+    if (localStorage.getItem("isAdmin") === "true") {
+        document.getElementById("adminPanel").style.display = "block";
+        document.getElementById("openLogin").style.display = "none";
+    }
+</script>
 
-        // Close modal jika klik di luar kotak
-        window.onclick = function(event) {
-            const modal = document.getElementById('modalOverlay');
-            if (event.target == modal) toggleModal(false);
-        }
-    </script>
 </body>
 </html>
