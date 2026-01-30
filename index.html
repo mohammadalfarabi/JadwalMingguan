@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Dokumen Jadwal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Jadwal Kegiatan Mingguan</h2>
+
+<!-- LOGIN ADMIN -->
+<div id="loginBox">
+  <h3>Login Admin</h3>
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+  <p id="loginMsg"></p>
+</div>
+
+<!-- TOMBOL ADMIN -->
+<div id="adminPanel" style="display:none;">
+  <a href="https://docs.google.com/spreadsheets/d/1WMXiYcvGiJugJs1ysUV0e1PmluD1d1m5/edit"
+     target="_blank"
+     class="edit-btn">
+     ✏️ Edit Dokumen
+  </a>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<!-- DOKUMEN -->
+<iframe
+  src="https://docs.google.com/spreadsheets/d/1WMXiYcvGiJugJs1ysUV0e1PmluD1d1m5/embed"
+  class="doc-frame">
+</iframe>
+
+<script src="script.js"></script>
+</body>
+</html>
