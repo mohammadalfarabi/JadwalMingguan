@@ -2,13 +2,14 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>SELAMAT DATANG DI WEBSITE JADWAL AL FARABI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PORTAL JADWAL AL FARABI - EDIT MODE</title>
     <style>
         body {
             background-color: #008080; 
             font-family: "Times New Roman", Times, serif;
             color: #000000;
-            margin: 20px;
+            margin: 10px; /* Margin lebih kecil untuk layar HP */
         }
 
         .web-container {
@@ -17,6 +18,7 @@
             padding: 15px;
             max-width: 900px;
             margin: 0 auto;
+            box-shadow: 6px 6px 0px rgba(0,0,0,0.6);
         }
 
         header {
@@ -27,12 +29,47 @@
             text-align: center;
         }
 
-        nav {
+        header h1 {
+            font-size: 1.5rem; /* Ukuran font judul yang fleksibel */
+            margin: 5px 0;
+        }
+
+        /* Panel Edit dimodifikasi agar bisa turun ke bawah (wrap) di layar kecil */
+        .edit-panel {
             background-color: #C0C0C0;
-            border-bottom: 2px solid #808080;
-            padding: 5px;
-            margin-bottom: 10px;
-            font-size: 0.9em;
+            border: 2px outset #ffffff;
+            padding: 10px;
+            margin: 15px 0;
+            display: flex;
+            flex-wrap: wrap; /* Agar tombol turun jika layar sempit */
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .win-button {
+            background-color: #C0C0C0;
+            border: 2px outset #ffffff;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            text-decoration: none;
+            color: black;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            min-width: fit-content;
+        }
+
+        .win-button:active {
+            border: 2px inset #ffffff;
+            background-color: #d0d0d0;
+        }
+
+        .win-button img {
+            width: 16px;
+            height: 16px;
         }
 
         marquee {
@@ -42,70 +79,42 @@
             margin: 10px 0;
         }
 
-        .win-button {
-            background-color: #C0C0C0;
-            border: 2px outset #ffffff;
-            padding: 3px 10px;
-            cursor: pointer;
-            font-size: 12px;
-            text-decoration: none;
-            color: black;
-        }
-
-        .win-button:active {
-            border: 2px inset #ffffff;
-        }
-
         .sheet-box {
             background-color: #ffffff;
-            border: 2px inset #808080;
-            margin-top: 15px;
+            border: 3px inset #808080;
+            margin-top: 10px;
+            overflow-x: auto; /* Memungkinkan scroll horizontal jika tabel spreadsheet terlalu lebar */
+            -webkit-overflow-scrolling: touch; /* Scroll halus di iOS */
         }
 
         iframe {
             width: 100%;
-            height: 600px;
+            height: 500px; /* Sedikit diperpendek agar lebih enak di HP */
             border: none;
+            display: block;
         }
 
         footer {
             margin-top: 20px;
             text-align: center;
             font-size: 12px;
+            border-top: 1px solid #808080;
+            padding-top: 10px;
         }
 
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .login-window {
-            background-color: #C0C0C0;
-            border: 3px outset #ffffff;
-            width: 300px;
-            padding: 2px;
-        }
-
-        .window-title {
-            background: #000080;
-            color: white;
-            padding: 3px 5px;
-            font-weight: bold;
-            font-size: 13px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .admin-panel {
-            display: none;
-            background: #ffffc0;
-            border: 1px dashed red;
-            padding: 10px;
-            margin-bottom: 10px;
+        /* Media Query untuk Layar Sangat Kecil (HP) */
+        @media (max-width: 480px) {
+            .web-container {
+                padding: 10px;
+                border: 2px outset #ffffff;
+            }
+            .win-button {
+                width: 100%; /* Tombol jadi full-width di HP agar mudah ditekan */
+                justify-content: center;
+            }
+            header h1 {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
@@ -116,21 +125,23 @@
         <h1>*** JADWAL KEGIATAN AL FARABI ***</h1>
     </header>
 
-    <nav>
-        [ <a href="#">Beranda</a> ] [ <a href="https://alfarabi.my.id">Tentang Kami</a> ] [ <a href="#" id="openLogin" onclick="toggleModal(true)">Admin Login</a> ]
-    </nav>
+    <marquee>PENGUMUMAN: Gunakan tombol "EDIT JADWAL" di bawah untuk melakukan perubahan pada database Google Spreadsheet...</marquee>
 
-    <marquee scrollamount="5">Selamat Datang di Web Jadwal Al Farabi -- Update Otomatis Setiap Hari! -- Website ini di gunakan hanya untuk mengingat jadwal --</marquee>
-
-    <div id="adminPanel" class="admin-panel">
-        <strong>Peringatan Admin:</strong> Anda masuk dalam mode Edit. 
-        <a href="https://docs.google.com/spreadsheets/d/1WMXiYcvGiJugJs1ysUV0e1PmluD1d1m5/edit" target="_blank" class="win-button">EDIT DATA</a>
-        <button class="win-button" onclick="logout()">LOGOUT</button>
+    <div class="edit-panel">
+        <span style="width: 100%; text-align: center; margin-bottom: 5px;"><b>MANAJEMEN DATA:</b></span>
+        <a href="https://docs.google.com/spreadsheets/d/1WMXiYcvGiJugJs1ysUV0e1PmluD1d1m5/edit" target="_blank" class="win-button">
+            <img src="https://win98icons.alexmeub.com/icons/png/write_yellow-0.png" alt="icon">
+            EDIT JADWAL (SPREADSHEET)
+        </a>
+        <a href="https://alfarabi.my.id" class="win-button">
+            <img src="https://win98icons.alexmeub.com/icons/png/help_book_computer-0.png" alt="icon">
+            KE WEBSITE UTAMA
+        </a>
     </div>
 
-    <center>
-        <h3>Informasi Jadwal Mingguan</h3>
-    </center>
+    <div style="text-align: center; margin-bottom: 10px;">
+        <h3 style="background-color: #000080; color: white; display: inline-block; padding: 2px 10px; font-size: 0.9rem;">PRATINJAU JADWAL SAAT INI</h3>
+    </div>
 
     <div class="sheet-box">
         <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSiWYOvdh6aL_kUPiWGbQAJbbR39YgliB7uESKuxi4FcTmr-xq6msru8skWftq5dQ/pubhtml?widget=true&headers=false"></iframe>
@@ -140,56 +151,6 @@
         <p>Copyright &copy; 1998 Al Farabi.</p>
     </footer>
 </div>
-
-<div class="modal-overlay" id="modalOverlay">
-    <div class="login-window">
-        <div class="window-title">
-            <span>Login Admin</span>
-            <span style="cursor:pointer" onclick="toggleModal(false)">[X]</span>
-        </div>
-        <div style="padding: 15px;">
-            Username: <br>
-            <input type="text" id="username" style="width: 100%; margin-bottom: 10px;"><br>
-            Password: <br>
-            <input type="password" id="password" style="width: 100%; margin-bottom: 10px;">
-            <center>
-                <button class="win-button" onclick="login()">OK</button>
-                <button class="win-button" onclick="toggleModal(false)">Cancel</button>
-            </center>
-            <p id="loginMsg" style="color:red; font-size:11px;"></p>
-        </div>
-    </div>
-</div>
-
-<script>
-    const ADMIN_USER = "admin";
-    const ADMIN_PASS = "12345";
-
-    function toggleModal(show) {
-        document.getElementById('modalOverlay').style.display = show ? 'flex' : 'none';
-    }
-
-    function login() {
-        const user = document.getElementById("username").value;
-        const pass = document.getElementById("password").value;
-        if (user === ADMIN_USER && pass === ADMIN_PASS) {
-            localStorage.setItem("isAdmin", "true");
-            location.reload();
-        } else {
-            document.getElementById("loginMsg").textContent = "Error: Password Salah!";
-        }
-    }
-
-    function logout() {
-        localStorage.removeItem("isAdmin");
-        location.reload();
-    }
-
-    if (localStorage.getItem("isAdmin") === "true") {
-        document.getElementById("adminPanel").style.display = "block";
-        document.getElementById("openLogin").style.display = "none";
-    }
-</script>
 
 </body>
 </html>
